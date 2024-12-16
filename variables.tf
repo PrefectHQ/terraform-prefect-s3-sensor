@@ -21,7 +21,9 @@ variable "topic_name" {
 variable "webhook_template" {
   type        = string
   description = "The template for the webhook"
-  default     = {
-    event_type = "{{ body.Records[0].eventType }}"
+  default = {
+    event_type  = "{{ body.Records[0].eventType }}"
+    bucket_name = "{{ body.Records[0].s3.bucket.name }}"
+    object_key  = "{{ body.Records[0].s3.object.key }}"
   }
 }

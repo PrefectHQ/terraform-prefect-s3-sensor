@@ -39,10 +39,10 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
 
 # Assume - we output the slug
 resource "prefect_webhook" "webhook" {
-  name = "s3-event-notification-webhook"
+  name        = "s3-event-notification-webhook"
   description = "Webhook for S3 event notifications"
-  enabled = true
-  template = jsonencode(var.webhook_template)
+  enabled     = true
+  template    = jsonencode(var.webhook_template)
 }
 
 resource "aws_sns_topic_subscription" "s3_event_notification_target" {
