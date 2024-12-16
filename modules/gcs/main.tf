@@ -2,25 +2,19 @@ resource "google_storage_notification" "notification" {
   bucket         = google_storage_bucket.bucket.name
   payload_format = "JSON_API_V1"
   topic          = google_pubsub_topic.topic.id
-  event_types    = ["OBJECT_FINALIZE", "OBJECT_METADATA_UPDATE"]
-  custom_attributes = {
-    new-attribute = "new-attribute-value"
-  }
-  depends_on = [google_pubsub_topic_iam_binding.binding]
+  event_types    = var.bucket_event_notification_types
+  depends_on     = [google_pubsub_topic_iam_binding.binding]
 }
 
 // Enable notifications by giving the correct IAM permission to the unique service account.
 
-data "google_storage_project_service_account" "gcs_account" {
-}
+data "google_storage_project_service_account" "gcs_account" {}
 
 resource "google_pubsub_topic_iam_binding" "binding" {
   topic   = google_pubsub_topic.topic.id
   role    = "roles/pubsub.publisher"
   members = ["serviceAccount:${data.google_storage_project_service_account.gcs_account.email_address}"]
 }
-
-// End enabling notifications
 
 resource "google_storage_bucket" "bucket" {
   name     = var.bucket_name

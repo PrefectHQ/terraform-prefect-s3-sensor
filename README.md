@@ -20,7 +20,6 @@ module "prefect_gcp_bucket_sensor" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.0 |
 | <a name="requirement_prefect"></a> [prefect](#requirement\_prefect) | ~> 2.13 |
 
 ## Providers
@@ -50,7 +49,8 @@ module "prefect_gcp_bucket_sensor" {
 | <a name="input_cloud_provider"></a> [cloud\_provider](#input\_cloud\_provider) | The cloud provider where the bucket and notification infrastructure is provisioned. Either `s3` or `gcs`. | `string` | n/a | yes |
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | The name of the bucket to create | `string` | `"sensor-bucket"` | no |
 | <a name="input_topic_name"></a> [topic\_name](#input\_topic\_name) | The name of the SNS or PubSub topic to create | `string` | `"topic"` | no |
-| <a name="input_webhook_template"></a> [webhook\_template](#input\_webhook\_template) | The template for the webhook | `string` | <pre>{<br/>  "bucket_name": "{{ body.Records[0].s3.bucket.name }}",<br/>  "event_type": "{{ body.Records[0].eventType }}",<br/>  "object_key": "{{ body.Records[0].s3.object.key }}"<br/>}</pre> | no |
+| <a name="input_webhook_name"></a> [webhook\_name](#input\_webhook\_name) | The name of the Prefect Webhook to create | `string` | `"bucket-sensor-webhook"` | no |
+| <a name="input_webhook_template"></a> [webhook\_template](#input\_webhook\_template) | The template for the webhook | `string` | `null` | no |
 
 ## Outputs
 
