@@ -1,20 +1,28 @@
-variable "bucket_name" {
-  type        = string
-  description = "The name of the S3 bucket to create"
-  default     = "s3-event-notification-bucket"
+variable "cloud_provider" {
+  type = string
+  validation {
+    condition     = contains(["s3", "gcs"], var.cloud_provider)
+    error_message = "The cloud provider must be either `s3` or `gcs`."
+  }
+  description = "The cloud provider where the bucket and notification infrastructure is provisioned. Either `s3` or `gcs`."
 }
 
-# https://docs.aws.amazon.com/AmazonS3/latest/userguide/notification-how-to-event-types-and-destinations.html#supported-notification-event-types
+variable "bucket_name" {
+  type        = string
+  description = "The name of the bucket to create"
+  default     = "sensor-bucket"
+}
+
 variable "bucket_event_notification_types" {
   type        = list(string)
-  description = "The types of S3 events to send notifications for"
-  default     = ["s3:ObjectCreated:*"]
+  description = "The types of S3/GCP bucket events to send notifications for"
+  # default     = ["s3:ObjectCreated:*"]
 }
 
 variable "topic_name" {
   type        = string
-  description = "The name of the SNS topic to create"
-  default     = "s3-event-notification-topic"
+  description = "The name of the SNS or PubSub topic to create"
+  default     = "topic"
 }
 
 # https://docs.aws.amazon.com/AmazonS3/latest/userguide/notification-content-structure.html
