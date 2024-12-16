@@ -7,6 +7,12 @@ variable "cloud_provider" {
   description = "The cloud provider where the bucket and notification infrastructure is provisioned. Either `s3` or `gcs`."
 }
 
+variable "webhook_name" {
+  type        = string
+  description = "The name of the Prefect Webhook to create"
+  default     = "bucket-sensor-webhook"
+}
+
 variable "bucket_name" {
   type        = string
   description = "The name of the bucket to create"
@@ -16,7 +22,6 @@ variable "bucket_name" {
 variable "bucket_event_notification_types" {
   type        = list(string)
   description = "The types of S3/GCP bucket events to send notifications for"
-  # default     = ["s3:ObjectCreated:*"]
 }
 
 variable "topic_name" {
@@ -25,13 +30,8 @@ variable "topic_name" {
   default     = "topic"
 }
 
-# https://docs.aws.amazon.com/AmazonS3/latest/userguide/notification-content-structure.html
 variable "webhook_template" {
   type        = string
   description = "The template for the webhook"
-  default = {
-    event_type  = "{{ body.Records[0].eventType }}"
-    bucket_name = "{{ body.Records[0].s3.bucket.name }}"
-    object_key  = "{{ body.Records[0].s3.object.key }}"
-  }
+  default     = null
 }

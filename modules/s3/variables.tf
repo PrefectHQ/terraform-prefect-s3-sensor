@@ -16,3 +16,8 @@ variable "topic_name" {
   description = "The name of the SNS topic to create"
   default     = "s3-event-notification-topic"
 }
+
+variable "prefect_webhook_url" {
+  type        = string
+  description = "The URL of the Prefect webhook to send notifications to"
+}
