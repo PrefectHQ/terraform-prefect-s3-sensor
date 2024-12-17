@@ -10,10 +10,10 @@ locals {
     }
     # https://cloud.google.com/storage/docs/pubsub-notifications
     gcs = {
-      event = "GCS {{ body.eventType }}",
+      event = "GCS {{ body.message.attributes.eventType }}",
       resource = {
-        "prefect.resource.id" = "gcs.bucket.{{ body.bucketId }}",
-        "object-key"          = "{{ body.objectId }}",
+        "prefect.resource.id" = "gcs.bucket.{{ body.message.attributes.bucketId }}",
+        "object-key"          = "{{ body.message.attributes.objectId }}",
       }
     }
   }
