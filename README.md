@@ -20,13 +20,13 @@ module "prefect_gcp_bucket_sensor" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_prefect"></a> [prefect](#requirement\_prefect) | 2.13.0 |
+| <a name="requirement_prefect"></a> [prefect](#requirement\_prefect) | >= 2.13.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_prefect"></a> [prefect](#provider\_prefect) | 2.13.0 |
+| <a name="provider_prefect"></a> [prefect](#provider\_prefect) | >= 2.13.1 |
 
 ## Modules
 
@@ -39,7 +39,7 @@ module "prefect_gcp_bucket_sensor" {
 
 | Name | Type |
 |------|------|
-| [prefect_webhook.webhook](https://registry.terraform.io/providers/prefecthq/prefect/2.13.0/docs/resources/webhook) | resource |
+| [prefect_webhook.webhook](https://registry.terraform.io/providers/prefecthq/prefect/latest/docs/resources/webhook) | resource |
 
 ## Inputs
 

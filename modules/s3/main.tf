@@ -7,7 +7,6 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
   eventbridge = true
 }
 
-
 resource "aws_cloudwatch_event_rule" "s3" {
   name        = "${var.bucket_name}-events-to-prefect"
   description = "Capture each S3 update to a Prefect webhook endpoint"
