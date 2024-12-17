@@ -23,7 +23,7 @@ resource "aws_cloudwatch_event_rule" "s3" {
 }
 
 resource "aws_cloudwatch_event_connection" "prefect" {
-  name               = "prefect-webhook-connection"
+  name               = "${var.topic_name}-event-connection"
   description        = "A connection to a Prefect webhook endpoint"
   authorization_type = "BASIC"
 
@@ -36,7 +36,7 @@ resource "aws_cloudwatch_event_connection" "prefect" {
 }
 
 resource "aws_cloudwatch_event_api_destination" "prefect" {
-  name                             = "prefect-webhook-api-destination"
+  name                             = "${var.topic_name}-event-destination"
   description                      = "An API Destination for a Prefect webhook endpoint"
   invocation_endpoint              = var.prefect_webhook_url
   http_method                      = "POST"
@@ -45,7 +45,7 @@ resource "aws_cloudwatch_event_api_destination" "prefect" {
 }
 
 resource "aws_iam_role" "eventbridge_invoke_api" {
-  name = "${var.bucket_name}-eventbridge-api-role"
+  name = "${var.topic_name}-eventbridge-api-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -60,7 +60,7 @@ resource "aws_iam_role" "eventbridge_invoke_api" {
 }
 
 resource "aws_iam_role_policy" "eventbridge_invoke_api" {
-  name = "${var.bucket_name}-eventbridge-api-policy"
+  name = "${var.topic_name}-invoke-api-destination"
   role = aws_iam_role.eventbridge_invoke_api.id
 
   policy = jsonencode({

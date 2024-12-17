@@ -19,6 +19,7 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [google_pubsub_subscription.subscription](https://registry.terraform.io/providers/hashicorp/google/6.12.0/docs/resources/pubsub_subscription) | resource |
 | [google_pubsub_topic.topic](https://registry.terraform.io/providers/hashicorp/google/6.12.0/docs/resources/pubsub_topic) | resource |
 | [google_pubsub_topic_iam_binding.binding](https://registry.terraform.io/providers/hashicorp/google/6.12.0/docs/resources/pubsub_topic_iam_binding) | resource |
 | [google_storage_bucket.bucket](https://registry.terraform.io/providers/hashicorp/google/6.12.0/docs/resources/storage_bucket) | resource |
