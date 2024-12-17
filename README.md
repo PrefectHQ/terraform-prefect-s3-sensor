@@ -6,13 +6,81 @@ Use this module to provision an off-the-shelf bucket sensor integration to trigg
 ## Usage
 
 ```hcl
-module "prefect_aws_bucket_sensor" {
-  source = "prefecthq/bucket-sensor//modules/s3"
+provider "prefect" {
+  # insert your Prefect API key here
 }
 
-module "prefect_gcp_bucket_sensor" {
-  source = "prefecthq/bucket-sensor//modules/gcs"
+terraform {
+  required_providers {
+    prefect = {
+      source = "prefecthq/prefect"
+    }
+  }
 }
+
+# S3 Example
+provider "aws" {
+  # insert your AWS credentials here
+}
+
+module "s3_to_prefect" {
+  source      = "prefecthq/bucket-sensor/prefect"
+  bucket_type = "s3"
+
+  # Eventbridge S3 Event types:
+  # https://docs.aws.amazon.com/AmazonS3/latest/userguide/EventBridge.html
+  bucket_event_notification_types = ["Object Created", "Object Deleted"]
+
+  bucket_name = "s3-to-prefect-source-bucket"
+  topic_name  = "s3-to-prefect-event-topic"
+
+  webhook_name = "s3-webhook"
+  # Prefect Webhook templates:
+  # https://docs.prefect.io/v3/automate/events/webhook-triggers#webhook-templates
+  #
+  # S3 Eventbridge Event Structure:
+  # https://docs.aws.amazon.com/AmazonS3/latest/userguide/ev-events.html
+  webhook_template = {
+    event = "S3 {{ body.detail.reason }}",
+    resource = {
+      "prefect.resource.id" = "s3.bucket.{{ body.detail.bucket.name }}",
+      "object-key"          = "{{ body.detail.object.key }}",
+    }
+  }
+}
+
+
+# GCS Example
+provider "google" {
+  # insert your GCP credentials here
+}
+
+module "gcs_to_prefect" {
+  source      = "prefecthq/bucket-sensor/prefect"
+  bucket_type = "gcs"
+
+  # GCS Event Notification Types:
+  # https://cloud.google.com/storage/docs/pubsub-notifications#attributes
+  bucket_event_notification_types = ["OBJECT_FINALIZE", "OBJECT_DELETE"]
+
+  bucket_name = "gcs-to-prefect-source-bucket"
+  topic_name  = "gcs-to-prefect-event-topic"
+
+  # Prefect Webhook templates:
+  # https://docs.prefect.io/v3/automate/events/webhook-triggers#webhook-templates
+  #
+  # GCS Event Notification Structure:
+  # https://cloud.google.com/storage/docs/pubsub-notifications#attributes
+  webhook_name = "gcs-webhook"
+  webhook_template = {
+    event = "GCS {{ body.message.attributes.eventType }}",
+    resource = {
+      "prefect.resource.id" = "gcs.bucket.{{ body.message.attributes.bucketId }}",
+      "object-key"          = "{{ body.message.attributes.objectId }}",
+    }
+  }
+}
+
 ```
 
 <!-- BEGIN_TF_DOCS -->
