@@ -4,11 +4,11 @@ variable "bucket_name" {
   default     = "s3-event-notification-bucket"
 }
 
-# https://docs.aws.amazon.com/AmazonS3/latest/userguide/notification-how-to-event-types-and-destinations.html#supported-notification-event-types
+# https://docs.aws.amazon.com/AmazonS3/latest/userguide/EventBridge.html
 variable "bucket_event_notification_types" {
   type        = list(string)
   description = "The types of S3 events to send notifications for"
-  default     = ["s3:ObjectCreated:*"]
+  default     = ["Object Created", "Object Deleted"]
 }
 
 variable "topic_name" {

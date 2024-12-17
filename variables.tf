@@ -1,10 +1,10 @@
-variable "cloud_provider" {
+variable "bucket_type" {
   type = string
   validation {
-    condition     = contains(["s3", "gcs"], var.cloud_provider)
-    error_message = "The cloud provider must be either `s3` or `gcs`."
+    condition     = contains(["s3", "gcs"], var.bucket_type)
+    error_message = "The bucket type must be either `s3` or `gcs`."
   }
-  description = "The cloud provider where the bucket and notification infrastructure is provisioned. Either `s3` or `gcs`."
+  description = "The type of bucket to create. Either `s3` or `gcs`."
 }
 
 variable "webhook_name" {
@@ -31,7 +31,8 @@ variable "topic_name" {
 }
 
 variable "webhook_template" {
-  type        = string
+  type        = map(any)
   description = "The template for the webhook"
   default     = null
 }
+

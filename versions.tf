@@ -2,7 +2,8 @@ terraform {
   required_providers {
     prefect = {
       source  = "prefecthq/prefect"
-      version = "~> 2.13"
+      version = "2.13.0"
     }
   }
 }
+

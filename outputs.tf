@@ -1,3 +1,3 @@
-output "webhook_url" {
-  value = prefect_webhook.webhook.slug
+output "webhook_endpoint" {
+  value = prefect_webhook.webhook.endpoint
 }
