@@ -21,3 +21,15 @@ variable "prefect_webhook_url" {
   type        = string
   description = "The URL of the Prefect webhook to send notifications to"
 }
+
+variable "webhook_name" {
+  type        = string
+  description = "The name of the Prefect webhook"
+  default     = "gcs-webhook"
+}
+
+variable "webhook_template" {
+  type        = map(any)
+  description = "The template for the Prefect webhook payload. Defaults to a template for GCS events."
+  default     = null
+}

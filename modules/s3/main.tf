@@ -78,3 +78,20 @@ resource "aws_cloudwatch_event_target" "prefect" {
   arn      = aws_cloudwatch_event_api_destination.prefect.arn
   role_arn = aws_iam_role.eventbridge_invoke_api.arn
 }
+
+locals {
+  default_webhook_template = {
+    event = "S3 {{ body.detail.reason }}",
+    resource = {
+      "prefect.resource.id" = "s3.bucket.{{ body.detail.bucket.name }}",
+      "object-key"          = "{{ body.detail.object.key }}",
+    }
+  }
+}
+
+resource "prefect_webhook" "webhook" {
+  name        = var.webhook_name
+  description = "Webhook for S3 bucket event notifications"
+  enabled     = true
+  template    = jsonencode(coalesce(var.webhook_template, local.default_webhook_template))
+}
