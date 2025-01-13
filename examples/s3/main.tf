@@ -18,8 +18,6 @@ module "s3_to_prefect" {
 
   bucket_event_notification_types = ["Object Created", "Object Deleted"]
 
-  prefect_webhook_url = "https://example.com/s3-webhook"
-
   webhook_name = "s3-webhook"
   webhook_template = {
     event = "S3 {{ body.detail.reason }}",

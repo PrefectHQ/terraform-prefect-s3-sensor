@@ -18,8 +18,6 @@ module "gcs_to_prefect" {
 
   bucket_event_notification_types = ["OBJECT_FINALIZE", "OBJECT_DELETE"]
 
-  prefect_webhook_url = "https://example.com/gcs-webhook"
-
   webhook_name = "gcs-webhook"
   webhook_template = {
     event = "GCS {{ body.message.attributes.eventType }}",

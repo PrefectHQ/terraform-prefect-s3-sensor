@@ -32,7 +32,7 @@ resource "google_pubsub_subscription" "subscription" {
   ack_deadline_seconds = 20
 
   push_config {
-    push_endpoint = var.prefect_webhook_url
+    push_endpoint = prefect_webhook.webhook.endpoint
   }
 }
 

@@ -38,7 +38,7 @@ resource "aws_cloudwatch_event_connection" "prefect" {
 resource "aws_cloudwatch_event_api_destination" "prefect" {
   name                             = "${var.topic_name}-event-destination"
   description                      = "An API Destination for a Prefect webhook endpoint"
-  invocation_endpoint              = var.prefect_webhook_url
+  invocation_endpoint              = prefect_webhook.webhook.endpoint
   http_method                      = "POST"
   invocation_rate_limit_per_second = 20
   connection_arn                   = aws_cloudwatch_event_connection.prefect.arn
