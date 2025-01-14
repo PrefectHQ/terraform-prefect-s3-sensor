@@ -25,6 +25,6 @@ variable "webhook_name" {
 
 variable "webhook_template" {
   type        = any
-  description = "The template for the Prefect webhook payload. Defaults to a template for S3 events."
+  description = "The template for the Prefect webhook payload. Defaults to a template for S3 events"
   default     = null
 }

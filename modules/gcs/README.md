@@ -37,7 +37,7 @@ No modules.
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | The name of the GCS bucket to create | `string` | `"gcs-event-notification-bucket"` | no |
 | <a name="input_topic_name"></a> [topic\_name](#input\_topic\_name) | The name of the PubSub topic to create | `string` | `"gcs-event-notification-topic"` | no |
 | <a name="input_webhook_name"></a> [webhook\_name](#input\_webhook\_name) | The name of the Prefect webhook | `string` | `"gcs-webhook"` | no |
-| <a name="input_webhook_template"></a> [webhook\_template](#input\_webhook\_template) | The template for the Prefect webhook payload. Defaults to a template for GCS events. | `any` | `null` | no |
+| <a name="input_webhook_template"></a> [webhook\_template](#input\_webhook\_template) | The template for the Prefect webhook payload. Defaults to a template for GCS events | `any` | `null` | no |
 
 ## Outputs
 
