@@ -45,5 +45,5 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_webhook_endpoint"></a> [webhook\_endpoint](#output\_webhook\_endpoint) | n/a |
+| <a name="output_webhook"></a> [webhook](#output\_webhook) | The Prefect webhook resource. Use the metadata to get the endpoint or webhook ID for downstream Automations |
 <!-- END_TF_DOCS -->
