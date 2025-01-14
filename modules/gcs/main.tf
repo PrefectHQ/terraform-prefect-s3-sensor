@@ -32,6 +32,23 @@ resource "google_pubsub_subscription" "subscription" {
   ack_deadline_seconds = 20
 
   push_config {
-    push_endpoint = var.prefect_webhook_url
+    push_endpoint = prefect_webhook.webhook.endpoint
   }
+}
+
+locals {
+  default_webhook_template = {
+    event = "GCS {{ body.message.attributes.eventType }}",
+    resource = {
+      "prefect.resource.id" = "gcs.bucket.{{ body.message.attributes.bucketId }}",
+      "object-key"          = "{{ body.message.attributes.objectId }}",
+    }
+  }
+}
+
+resource "prefect_webhook" "webhook" {
+  name        = var.webhook_name
+  description = "Webhook for GCS bucket event notifications"
+  enabled     = true
+  template    = jsonencode(coalesce(var.webhook_template, local.default_webhook_template))
 }
