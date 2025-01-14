@@ -27,3 +27,10 @@ module "s3_to_prefect" {
     }
   }
 }
+
+output "webhook_id" {
+  value = module.s3_to_prefect.webhook.id
+}
+output "webhook_endpoint" {
+  value = module.s3_to_prefect.webhook.endpoint
+}
